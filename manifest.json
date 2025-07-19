@@ -1,0 +1,23 @@
+{
+  "name": "Bitcoin Premium Calculator",
+  "short_name": "BTC Premium Calc",
+  "description": "Calculate Bitcoin amounts with custom premium rates",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1e1e1e",
+  "background_color": "#121212",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

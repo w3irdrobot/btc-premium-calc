@@ -1,0 +1,261 @@
+:root {
+    --primary: #f8f8f8;
+    --accent: #FFCC00;        /* Yellow from American traditional palette */
+    --accent-dark: #E6B800;   /* Darker yellow for hover states */
+    --background: #121212;
+    --card-bg: #1E1E1E;
+    --border: #333333;
+    --text-muted: #AAAAAA;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+    background-color: var(--background);
+    color: var(--primary);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+}
+
+
+
+.app-header {
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+}
+
+.calculator {
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.2);
+}
+
+.currency, .percentage {
+    font-weight: 600;
+    color: var(--accent);
+    padding: 0 1rem;
+    font-size: 1.1rem;
+}
+
+input[type="number"] {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 1.25rem;
+    padding: 0.875rem 0;
+    outline: none;
+    -moz-appearance: textfield;
+    width: 100%;
+}
+
+/* Specific style for premium input */
+#premium {
+    padding-left: 1rem;
+}
+
+/* Remove left padding from USD input */
+#usd-amount {
+    padding-left: 0;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.5rem 0;
+}
+
+.result {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.result-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.result-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.2;
+}
+
+.unit {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-left: 0.25rem;
+}
+
+.rate-info {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.rate {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.rate:last-child {
+    margin-bottom: 0;
+}
+
+.rate .label {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.rate .value {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.accent {
+    color: var(--accent) !important;
+    font-weight: 600 !important;
+}
+
+.app-footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: auto;
+}
+
+.app-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.app-footer a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.usa-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px 0 1px;
+    position: relative;
+    top: -1px;
+    width: 24px;
+    height: 13px;
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    html {
+        font-size: 15px;
+    }
+
+    .app {
+        padding: 0 1rem;
+    }
+
+    .card {
+        padding: 1.25rem;
+    }
+
+    .result-value {
+        font-size: 2.25rem;
+    }
+}
+
+/* PWA specific styles */
+@media (display-mode: standalone) {
+    .app {
+        padding: 0 1rem env(safe-area-inset-bottom);
+    }
+}
