@@ -9,6 +9,7 @@ let btcPrice = DEFAULT_BTC_PRICE;
 const usdInput = document.getElementById('usd-amount');
 const premiumInput = document.getElementById('premium');
 const satsOutput = document.getElementById('sats-amount');
+const btcOutput = document.getElementById('btc-amount');
 const exchangeRateOutput = document.getElementById('exchange-rate');
 const effectiveRateOutput = document.getElementById('effective-rate');
 
@@ -41,14 +42,14 @@ const fetchBtcPrice = async () => {
 };
 
 // Animate number change
-const animateValue = (element, start, end, duration = 500) => {
+const animateValue = (element, start, end, type, duration = 500) => {
     const range = end - start;
     const startTime = performance.now();
 
     const updateNumber = (currentTime) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        const current = Math.floor(start + (range * progress));
+        const current = type === 'sats' ? Math.floor(start + (range * progress)) : (start + (range * progress)).toFixed(8);
 
         element.textContent = formatNumber(current);
 
@@ -75,7 +76,8 @@ const calculateSats = async () => {
     const sats = Math.floor(btcAmount * SATS_PER_BTC);
     
     // Update UI with animations and rates
-    animateValue(satsOutput, parseInt(satsOutput.textContent.replace(/,/g, '') || '0'), sats);
+    animateValue(satsOutput, parseInt(satsOutput.textContent.replace(/,/g, '') || '0'), sats, 'sats');
+    animateValue(btcOutput, parseFloat(btcOutput.textContent || '0.0'), btcAmount, 'btc');
     exchangeRateOutput.textContent = formatCurrency(btcPrice);
     effectiveRateOutput.textContent = formatCurrency(effectiveRate);
 };
