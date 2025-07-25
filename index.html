@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192x192.png">
 </head>
+
 <body>
     <div class="app">
         <header class="app-header">
@@ -24,26 +26,14 @@
                     <label for="usd-amount">USD Amount</label>
                     <div class="input-wrapper">
                         <span class="currency">$</span>
-                        <input
-                            type="number"
-                            id="usd-amount"
-                            min="0"
-                            step="0.01"
-                            placeholder="0.00"
-                            autofocus
-                        >
+                        <input type="number" id="usd-amount" min="0" step="0.01" placeholder="0.00" autofocus>
                     </div>
                 </div>
 
                 <div class="input-group">
                     <label for="premium">Premium/Discount</label>
                     <div class="input-wrapper">
-                        <input
-                            type="number"
-                            id="premium"
-                            step="0.01"
-                            placeholder="0.00"
-                        >
+                        <input type="number" id="premium" step="0.01" placeholder="0.00">
                         <span class="percentage">%</span>
                     </div>
                 </div>
@@ -55,6 +45,10 @@
                     <div class="result-value">
                         <span id="sats-amount">0</span>
                         <span class="unit">sats</span>
+                    </div>
+                    <div class="result-value">
+                        <span id="btc-amount">0</span>
+                        <span class="unit">₿</span>
                     </div>
                 </div>
 
@@ -68,36 +62,52 @@
                         <span id="effective-rate" class="value accent">$118,051</span>
                     </div>
                 </div>
+                <div class="input-group">
+                    <label for="exchange-select">Exchange</label>
+                    <div class="input-wrapper exchange-rate">
+                        <select id="exchange-select">
+                            <option value="mempool" selected>Mempool</option>
+                            <option value="kraken">Kraken</option>
+                            <option value="coinbase">Coinbase</option>
+                            <option value="binance">Binance</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </main>
 
         <footer class="app-footer">
             <p>Made in
-                <svg class="usa-icon" viewBox="0 0 120 63" width="24" height="13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="usa-icon" viewBox="0 0 120 63" width="24" height="13" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <!-- Full set of 13 stripes (7 red, 6 white) -->
-                    <rect y="0" width="120" height="4.846" fill="#BD3D44"/>
-                    <rect y="4.846" width="120" height="4.846" fill="#FFF"/>
-                    <rect y="9.692" width="120" height="4.846" fill="#BD3D44"/>
-                    <rect y="14.538" width="120" height="4.846" fill="#FFF"/>
-                    <rect y="19.384" width="120" height="4.846" fill="#BD3D44"/>
-                    <rect y="24.23" width="120" height="4.846" fill="#FFF"/>
-                    <rect y="29.076" width="120" height="4.846" fill="#BD3D44"/>
-                    <rect y="33.922" width="120" height="4.846" fill="#FFF"/>
-                    <rect y="38.768" width="120" height="4.846" fill="#BD3D44"/>
-                    <rect y="43.614" width="120" height="4.846" fill="#FFF"/>
-                    <rect y="48.46" width="120" height="4.846" fill="#BD3D44"/>
-                    <rect y="53.306" width="120" height="4.846" fill="#FFF"/>
-                    <rect y="58.152" width="120" height="4.846" fill="#BD3D44"/>
+                    <rect y="0" width="120" height="4.846" fill="#BD3D44" />
+                    <rect y="4.846" width="120" height="4.846" fill="#FFF" />
+                    <rect y="9.692" width="120" height="4.846" fill="#BD3D44" />
+                    <rect y="14.538" width="120" height="4.846" fill="#FFF" />
+                    <rect y="19.384" width="120" height="4.846" fill="#BD3D44" />
+                    <rect y="24.23" width="120" height="4.846" fill="#FFF" />
+                    <rect y="29.076" width="120" height="4.846" fill="#BD3D44" />
+                    <rect y="33.922" width="120" height="4.846" fill="#FFF" />
+                    <rect y="38.768" width="120" height="4.846" fill="#BD3D44" />
+                    <rect y="43.614" width="120" height="4.846" fill="#FFF" />
+                    <rect y="48.46" width="120" height="4.846" fill="#BD3D44" />
+                    <rect y="53.306" width="120" height="4.846" fill="#FFF" />
+                    <rect y="58.152" width="120" height="4.846" fill="#BD3D44" />
 
-                                        <!-- Blue field with stars -->
-                    <rect width="48" height="28" fill="#192F5D"/>
+                    <!-- Blue field with stars -->
+                    <rect width="48" height="28" fill="#192F5D" />
 
                     <!-- Stars (5 rows of 6 stars) -->
                     <g fill="#FFF" font-family="Arial" font-size="4" font-weight="bold" letter-spacing="0">
-                        <text y="8" x="4">★</text><text y="8" x="12">★</text><text y="8" x="20">★</text><text y="8" x="28">★</text><text y="8" x="36">★</text>
-                        <text y="14" x="8">★</text><text y="14" x="16">★</text><text y="14" x="24">★</text><text y="14" x="32">★</text><text y="14" x="40">★</text>
-                        <text y="20" x="4">★</text><text y="20" x="12">★</text><text y="20" x="20">★</text><text y="20" x="28">★</text><text y="20" x="36">★</text>
-                        <text y="26" x="8">★</text><text y="26" x="16">★</text><text y="26" x="24">★</text><text y="26" x="32">★</text><text y="26" x="40">★</text>
+                        <text y="8" x="4">★</text><text y="8" x="12">★</text><text y="8" x="20">★</text><text y="8"
+                            x="28">★</text><text y="8" x="36">★</text>
+                        <text y="14" x="8">★</text><text y="14" x="16">★</text><text y="14" x="24">★</text><text y="14"
+                            x="32">★</text><text y="14" x="40">★</text>
+                        <text y="20" x="4">★</text><text y="20" x="12">★</text><text y="20" x="20">★</text><text y="20"
+                            x="28">★</text><text y="20" x="36">★</text>
+                        <text y="26" x="8">★</text><text y="26" x="16">★</text><text y="26" x="24">★</text><text y="26"
+                            x="32">★</text><text y="26" x="40">★</text>
                     </g>
                 </svg>
                 by <a href="https://github.com/w3irdrobot" target="_blank" rel="noopener noreferrer">w3irdrobot</a>
@@ -107,4 +117,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>

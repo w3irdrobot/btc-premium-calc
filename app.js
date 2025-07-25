@@ -9,8 +9,10 @@ let btcPrice = DEFAULT_BTC_PRICE;
 const usdInput = document.getElementById('usd-amount');
 const premiumInput = document.getElementById('premium');
 const satsOutput = document.getElementById('sats-amount');
+const btcOutput = document.getElementById('btc-amount');
 const exchangeRateOutput = document.getElementById('exchange-rate');
 const effectiveRateOutput = document.getElementById('effective-rate');
+const exchangeSelect = document.getElementById('exchange-select');
 
 // Format number with commas and optional decimals
 const formatNumber = (num, decimals = 0) => {
@@ -27,28 +29,56 @@ const formatCurrency = (amount) => {
 
 // Fetch BTC price from API
 const fetchBtcPrice = async () => {
+    const selectedExchange = exchangeSelect.value;
+    let url;
+    console.log(`Fetching BTC price from ${selectedExchange} ...`);
+
+    switch (selectedExchange) {
+        case 'kraken':
+            url = 'https://api.kraken.com/0/public/Ticker?pair=XBTUSD';
+            break;
+        case 'coinbase':
+            url = 'https://api.coinbase.com/v2/prices/spot?currency=USD';
+            break;
+        case 'binance':
+            url = 'https://api.binance.us/api/v3/ticker/price?symbol=BTCUSD';
+            break;
+        default:
+            url = 'https://mempool.space/api/v1/prices';
+    }
+
     try {
-        const response = await fetch('https://mempool.space/api/v1/prices');
+        let price;
+        const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch BTC price');
-        
-        const prices = await response.json();
-        // Use USD price or default if not available
-        return prices.USD || DEFAULT_BTC_PRICE;
+        const data = await response.json();
+
+        if (selectedExchange === 'mempool') {
+            price = data.USD;
+        } else if (selectedExchange === 'kraken') {
+            price = data.result.XXBTZUSD.c[0];
+        } else if (selectedExchange === 'coinbase') {
+            price = data.data.amount;
+        } else if (selectedExchange === 'binance') {
+            price = data.price;
+        }
+
+        return Math.round(price);
     } catch (error) {
-        console.error('Error fetching BTC price:', error);
+        console.error(`Error fetching BTC price from ${selectedExchange}:`, error);
         return DEFAULT_BTC_PRICE;
     }
 };
 
 // Animate number change
-const animateValue = (element, start, end, duration = 500) => {
+const animateValue = (element, start, end, type, duration = 500) => {
     const range = end - start;
     const startTime = performance.now();
 
     const updateNumber = (currentTime) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        const current = Math.floor(start + (range * progress));
+        const current = type === 'sats' ? Math.floor(start + (range * progress)) : (start + (range * progress)).toFixed(8);
 
         element.textContent = formatNumber(current);
 
@@ -75,7 +105,8 @@ const calculateSats = async () => {
     const sats = Math.floor(btcAmount * SATS_PER_BTC);
     
     // Update UI with animations and rates
-    animateValue(satsOutput, parseInt(satsOutput.textContent.replace(/,/g, '') || '0'), sats);
+    animateValue(satsOutput, parseInt(satsOutput.textContent.replace(/,/g, '') || '0'), sats, 'sats');
+    animateValue(btcOutput, parseFloat(btcOutput.textContent || '0.0'), btcAmount, 'btc');
     exchangeRateOutput.textContent = formatCurrency(btcPrice);
     effectiveRateOutput.textContent = formatCurrency(effectiveRate);
 };
@@ -151,4 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
+});
+
+exchangeSelect.addEventListener('change', async () => {
+    btcPrice = await fetchBtcPrice(); // update price from new source
+    calculateSats(); // recalculate with new rate
 });
