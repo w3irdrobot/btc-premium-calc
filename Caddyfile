@@ -1,0 +1,12 @@
+# Serve static files with HTTPS on localhost
+localhost:443 {
+    # Enable the static file server
+    root * /usr/share/caddy
+    file_server
+
+    # Enable gzip compression
+    encode gzip
+
+    # Use self-signed certificate for localhost
+    tls internal
+}
