@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3"; // Updated for better request scheme handling
 const CACHE_NAME = `btc-premium-calc-${CACHE_VERSION}`;
 const ASSETS = [
   "/",
@@ -45,10 +45,17 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+// List of supported request schemes
+const supportedSchemes = ['http', 'https'];
+
 // Fetch event with stale-while-revalidate strategy
 self.addEventListener("fetch", (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== "GET") return;
+  const requestUrl = new URL(event.request.url);
+  
+  // Skip non-GET requests and unsupported schemes
+  if (event.request.method !== "GET" || !supportedSchemes.includes(requestUrl.protocol.replace(':', ''))) {
+    return; // Let the browser handle these requests normally
+  }
 
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
@@ -56,15 +63,15 @@ self.addEventListener("fetch", (event) => {
         // Return cached response if found
         const fetchPromise = fetch(event.request)
           .then((networkResponse) => {
-            // Update cache with fresh response
-            if (networkResponse.ok) {
+            // Only cache successful responses and only for supported schemes
+            if (networkResponse.ok && supportedSchemes.includes(new URL(networkResponse.url).protocol.replace(':', ''))) {
               cache.put(event.request, networkResponse.clone());
             }
             return networkResponse;
           })
           .catch(() => {
             // If fetch fails, return the cached response (if any)
-            return response;
+            return response || new Response('Network error', { status: 408 });
           });
 
         // Return cached response immediately, then update from network
