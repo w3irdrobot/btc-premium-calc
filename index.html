@@ -46,6 +46,7 @@
                             <option value="kraken">Kraken</option>
                             <option value="coinbase">Coinbase</option>
                             <option value="binance">Binance</option>
+                            <option value="custom">Custom</option>
                         </select>
                     </div>
                 </div>
@@ -69,6 +70,15 @@
                         <span class="label">Market Rate:</span>
                         <span id="exchange-rate" class="value">$118,051</span>
                     </div>
+                    <!-- Custom rate (shown only when Market = Custom) -->
+                    <div class="input-group" id="custom-rate-group" style="display:none;">
+                        <label for="custom-rate">Custom Rate:</label>
+                        <div class="input-wrapper">
+                            <span class="currency">$</span>
+                            <input type="number" id="custom-rate" min="0" step="0.01" placeholder="0.00">
+                        </div>
+                    </div>
+
                     <div class="rate">
                         <span class="label">Your Rate:</span>
                         <span id="effective-rate" class="value accent">$118,051</span>
